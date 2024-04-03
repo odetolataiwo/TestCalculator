@@ -30,7 +30,7 @@ func TestCalculateIntegration(t *testing.T) {
 		{"1e300 + 1e300", 2e300, nil},        // Adding two large numbers
 		{"1e300 / 1e-300", math.Inf(1), nil}, // Dividing a large number by a very small number
 
-		// these scenarios are not catered for in the code
+		// these scenarios are not catered for in the code.
 		//{"", 0, errors.New("invalid expression")},     // Empty expression
 		//{"1", 0, errors.New("invalid expression")},    // Missing operator
 		//{"1 + ", 0, errors.New("invalid expression")}, // Missing operand

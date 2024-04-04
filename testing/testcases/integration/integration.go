@@ -1,14 +1,21 @@
 //go:build integration
 // +build integration
 
-package calculator
+package integration
 
 import (
 	"errors"
 	"math"
 	"strings"
 	"testing"
+
+	"TestCalculator/calculator"
+	"TestCalculator/testing/assertions"
 )
+
+func What() error {
+	return nil
+}
 
 func TestCalculateIntegration(t *testing.T) {
 	// Define test cases with combinations of operands and operators
@@ -45,35 +52,35 @@ func TestCalculateIntegration(t *testing.T) {
 		// Split the expression into operands and operator
 		parts := strings.Split(test.expression, " ")
 		if len(parts) != 3 {
-			t.Errorf("Invalid expression: %s", test.expression)
+			assertions.InvalidInputErrorOccurred(t, test.expression)
 			continue
 		}
 
-		operand1, err := ParseOperand(parts[0])
+		operand1, err := calculator.ParseOperand(parts[0])
 		if err != nil {
-			t.Errorf("Error parsing operand: %v", err)
+			assertions.ErrorOccurred(t, err)
 			continue
 		}
 
-		operand2, err := ParseOperand(parts[2])
+		operand2, err := calculator.ParseOperand(parts[2])
 		if err != nil {
-			t.Errorf("Error parsing operand: %v", err)
+			assertions.ErrorOccurred(t, err)
 			continue
 		}
 
 		operator := parts[1]
 
 		// Calculate the result
-		result, err := Calculate(operand1, operand2, operator)
+		result, err := calculator.Calculate(operand1, operand2, operator)
 
 		// Check for errors
 		if err != nil && err.Error() != test.err.Error() {
-			t.Errorf("Expected error: %v, got: %v", test.err, err)
+			assertions.Equal(t, test.err, err)
 		}
 
 		// Compare the result with the expected value
 		if result != test.expected {
-			t.Errorf("Expected result: %v, got: %v", test.expected, result)
+			assertions.Equal(t, test.expected, result)
 		}
 	}
 }

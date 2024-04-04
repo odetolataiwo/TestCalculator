@@ -2,12 +2,17 @@ package main
 
 import (
 	"TestCalculator/calculator"
+	"TestCalculator/testing"
 	"fmt"
 	"log"
 	"os"
 )
 
 func main() {
+
+	testing.RunUnitTests()
+	testing.RunIntegrationTests()
+
 	args := os.Args[1:]
 	if len(args) != 3 {
 		log.Fatal("Usage: main <operand1> <operator> <operand2>")

@@ -20,19 +20,19 @@ jobs:
       - name: Run unit tests and save results
         run: |
           go test -v ./... | tee unit_test_results.txt
-          # Save the unit test results as an artifact
-          - name: Save unit test results
-            uses: actions/upload-artifact@v2
-            with:
-              name: unit-test-results
-              path: unit_test_results.txt
+        # Save the unit test results as an artifact
+      - name: Save unit test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit-test-results
+          path: unit_test_results.txt
 
       - name: Run integration tests and save results
         run: |
           go test -v -tags=integration ./... | tee integration_test_results.txt
-          # Save the integration test results as an artifact
-          - name: Save integration test results
-            uses: actions/upload-artifact@v2
-            with:
-              name: integration-test-results
-              path: integration_test_results.txt
+        # Save the integration test results as an artifact
+      - name: Save integration test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: integration-test-results
+          path: integration_test_results.txt
